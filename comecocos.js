@@ -16,15 +16,41 @@ function startpacman(){
   setcanvas();
   setboard();
   draw();
+  window.addEventListener('keydown', function(event) { pacman.move(event.key); });
 }
 
 var pacman ={
   image: pacmanimage,
-  posx: 13,
-  posy: 10,
-  /*move: movepacman(){
-    return this.posx + " " + this.posy;
-  }*/
+  posy: 13,
+  posx: 10,
+  move: function(event){
+    if(event == "ArrowDown"){
+      if(Board[(this.posy+1)][this.posx] != 1){
+        this.posy = this.posy + 1;
+      }else{
+        console.log('pared');
+      }
+    }else if (event == "ArrowUp") {
+      if(Board[(this.posy-1)][this.posx] != 1){
+        this.posy = this.posy - 1;
+      }else{
+        console.log('pared');
+      }
+    }else if (event == "ArrowLeft") {
+      if(Board[(this.posy)][this.posx-1] != 1){
+        this.posx = this.posx - 1;
+      }else{
+        console.log('pared');
+      }
+    }else if (event == "ArrowRight") {
+      if(Board[(this.posy)][this.posx+1] != 1){
+        this.posx = this.posx + 1;
+      }else{
+        console.log('pared');
+      }
+    }
+    draw();
+  }
 };
 
 function setcanvas(){
@@ -61,7 +87,7 @@ function setboard(){
 }
 
 function draw(){
-  console.log(Board);
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   var i;
   var xpos = 0;
@@ -71,8 +97,8 @@ function draw(){
     line = Board[i];
 
     for(j = 0; j<Board.length;j++){
-      console.log(line[j]);
-      if (i == pacman.posx && j == pacman.posy){
+
+      if (j == pacman.posx && i == pacman.posy){
         img.src= pacman.image;
         ctx.drawImage(img, 0, 0, 768, 768, xpos, ypos, pixwidth,pixheight);
       }else{
@@ -94,5 +120,6 @@ function draw(){
     xpos = 0;
     ypos += pixheight;
     }
+
 
 }
