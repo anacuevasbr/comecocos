@@ -9,7 +9,7 @@ var backgroundcolor = 'White';
 var dot = 'comida.png';
 var img = new Image;
 var pacmanimage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pacman.lxset.svg/768px-Pacman.lxset.svg.png';
-
+var Score = 0;
 //Programa principal
 
 function startpacman(){
@@ -23,30 +23,45 @@ var pacman ={
   image: pacmanimage,
   posy: 13,
   posx: 10,
+  eat: function(){
+    if(Board[(this.posy)][this.posx] == 2){
+      Board[(this.posy)][this.posx] = 0;
+      Score = Score + 1;
+      document.getElementById("score").innerHTML = Score;
+    }
+  },
   move: function(event){
     if(event == "ArrowDown"){
       if(Board[(this.posy+1)][this.posx] != 1){
         this.posy = this.posy + 1;
+        this.eat();
       }else{
         console.log('pared');
       }
     }else if (event == "ArrowUp") {
       if(Board[(this.posy-1)][this.posx] != 1){
         this.posy = this.posy - 1;
+        this.eat();
       }else{
         console.log('pared');
       }
     }else if (event == "ArrowLeft") {
-      if(Board[(this.posy)][this.posx-1] != 1){
-        this.posx = this.posx - 1;
-      }else{
-        console.log('pared');
+      if (this.posx>0){
+        if(Board[(this.posy)][this.posx-1] != 1){
+          this.posx = this.posx - 1;
+          this.eat();
+        }else{
+          console.log('pared');
+        }
       }
     }else if (event == "ArrowRight") {
-      if(Board[(this.posy)][this.posx+1] != 1){
-        this.posx = this.posx + 1;
-      }else{
-        console.log('pared');
+      if (this.posx<19){
+        if(Board[(this.posy)][this.posx+1] != 1){
+          this.posx = this.posx + 1;
+          this.eat();
+        }else{
+          console.log('pared');
+        }
       }
     }
     draw();
@@ -62,21 +77,21 @@ function setcanvas(){
 
 function setboard(){
   Board = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-           [2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+           [2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2],
            [1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1],
            [1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-           [1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1],
+           [1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1],
            [1, 2, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 2, 1, 2, 1],
            [1, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1],
-           [1, 2, 1, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 2, 1],
+           [1, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1],
            [1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 1],
-           [1, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1],
+           [1, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1],
-           [1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1],
-           [2, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 1, 1, 2, 2, 2],
-           [1, 1, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 1, 1],
+           [1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
+           [2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+           [1, 1, 2, 2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 1],
            [1, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1],
            [1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1],
            [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
