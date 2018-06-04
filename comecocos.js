@@ -6,13 +6,19 @@ var pixheight;
 var pixwidth;
 var wallcolor = 'Black';
 var backgroundcolor = 'White';
-var dot = 'comida.png';
+var dot = 'white/comida.png';
 var img = new Image;
-var pacmanimage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pacman.lxset.svg/768px-Pacman.lxset.svg.png';
+var pacmanimage = 'white/pacman.png';
 var Score = 0;
-var Blueimg = 'blueghost.png';
+var Blueimg = 'white/blueghost.png';
+var Redimg = 'white/redghost.png';
+var Orangeimg = 'white/orangeghost.png';
+var Pinkimg = 'white/pinkghost.png';
 var BlueGhost;
-var doorimg = 'door.png';
+var RedGhost;
+var OrangeGhost;
+var PinkGhost;
+var doorimg = 'white/door.png';
 var Lives = 3;
 //Programa principal
 
@@ -84,6 +90,9 @@ var pacman ={
 
 function setghosts(){
   BlueGhost = new Ghost(Blueimg, 8, 11, 'random');
+  RedGhost = new Ghost(Redimg, 9, 11, 'random');
+  OrangeGhost = new Ghost(Orangeimg, 10, 11, 'random');
+  PinkGhost = new Ghost(Pinkimg, 11, 11, 'random');
 }
 function setcanvas(){
   canvas = document.getElementById("mycanvas");
@@ -135,6 +144,18 @@ function draw(){
         ctx.drawImage(img, 0, 0, 768, 768, xpos, ypos, pixwidth,pixheight);
       }else if (j == BlueGhost.posx && i == BlueGhost.posy) {
         img.src= BlueGhost.image;
+        ctx.drawImage(img, 0, 0, 600, 600, xpos, ypos, pixwidth,pixheight);
+
+      }else if (j == PinkGhost.posx && i == PinkGhost.posy) {
+        img.src= PinkGhost.image;
+        ctx.drawImage(img, 0, 0, 600, 600, xpos, ypos, pixwidth,pixheight);
+
+      }else if (j == OrangeGhost.posx && i == OrangeGhost.posy) {
+        img.src= OrangeGhost.image;
+        ctx.drawImage(img, 0, 0, 600, 600, xpos, ypos, pixwidth,pixheight);
+
+      }else if (j == RedGhost.posx && i == RedGhost.posy) {
+        img.src= RedGhost.image;
         ctx.drawImage(img, 0, 0, 600, 600, xpos, ypos, pixwidth,pixheight);
 
       }else{
