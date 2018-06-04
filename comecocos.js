@@ -16,13 +16,30 @@ function startpacman(){
   setcanvas();
   setboard();
   draw();
-  window.addEventListener('keydown', function(event) { pacman.move(event.key); });
+  play();
+
 }
 
 var pacman ={
   image: pacmanimage,
   posy: 13,
   posx: 10,
+  dir: 0,
+  changedir: function(event){
+    if(event == "ArrowDown"){
+      if(Board[(this.posy+1)][this.posx] != 1){
+        this.dir = 1;}
+    }else if (event == "ArrowUp") {
+      if(Board[(this.posy-1)][this.posx] != 1){
+        this.dir = 2;}
+    }else if (event == "ArrowLeft") {
+      if(Board[(this.posy)][this.posx-1] != 1){
+        this.dir = 3;}
+    }else if (event == "ArrowRight") {
+      if(Board[(this.posy)][this.posx+1] != 1){
+        this.dir = 4;}
+    }
+  },
   eat: function(){
     if(Board[(this.posy)][this.posx] == 2){
       Board[(this.posy)][this.posx] = 0;
@@ -31,21 +48,21 @@ var pacman ={
     }
   },
   move: function(event){
-    if(event == "ArrowDown"){
+    if(this.dir == 1){
       if(Board[(this.posy+1)][this.posx] != 1){
         this.posy = this.posy + 1;
         this.eat();
       }else{
         console.log('pared');
       }
-    }else if (event == "ArrowUp") {
+    }else if (this.dir == 2) {
       if(Board[(this.posy-1)][this.posx] != 1){
         this.posy = this.posy - 1;
         this.eat();
       }else{
         console.log('pared');
       }
-    }else if (event == "ArrowLeft") {
+    }else if (this.dir == 3) {
       if (this.posx>0){
         if(Board[(this.posy)][this.posx-1] != 1){
           this.posx = this.posx - 1;
@@ -54,7 +71,7 @@ var pacman ={
           console.log('pared');
         }
       }
-    }else if (event == "ArrowRight") {
+    }else if (this.dir == 4) {
       if (this.posx<19){
         if(Board[(this.posy)][this.posx+1] != 1){
           this.posx = this.posx + 1;
@@ -64,7 +81,6 @@ var pacman ={
         }
       }
     }
-    draw();
   }
 };
 
@@ -137,4 +153,12 @@ function draw(){
     }
 
 
+}
+
+function play(){
+  window.addEventListener('keydown', function(event) { pacman.changedir(event.key); });
+  pacman.move();
+  draw();
+  setTimeout(function(){
+    requestAnimationFrame(play);},1000/8);
 }
