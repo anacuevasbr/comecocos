@@ -7,6 +7,7 @@ var pixwidth;
 var wallcolor = 'Black';
 var backgroundcolor = 'White';
 var dot = 'white/comida.png';
+var bigdot ='white/comidagrande.pmg';
 var img = new Image;
 var pacmanimage = 'white/pacman.png';
 var Score = 0;
@@ -170,6 +171,10 @@ function draw(){
           img.src= doorimg;
           ctx.fillStyle= backgroundcolor;
           ctx.drawImage(img, 0, 0, 300, 300, xpos, ypos, pixwidth,pixheight);
+        }else if(line[j] == 4){
+          img.src= bigdot;
+          ctx.fillStyle= backgroundcolor;
+          ctx.drawImage(img, 0, 0, 120, 120, xpos, ypos, pixwidth,pixheight);
         }else{
           ctx.fillStyle= wallcolor;
           ctx.fillRect(xpos, ypos, pixwidth, pixheight);
