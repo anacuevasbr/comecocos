@@ -10,11 +10,16 @@ var dot = 'comida.png';
 var img = new Image;
 var pacmanimage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pacman.lxset.svg/768px-Pacman.lxset.svg.png';
 var Score = 0;
+var Blueimg = 'blueghost.png';
+var BlueGhost;
+var doorimg = 'door.png';
+var Lives = 3;
 //Programa principal
 
 function startpacman(){
   setcanvas();
   setboard();
+  setghosts();
   draw();
   play();
 
@@ -47,28 +52,22 @@ var pacman ={
       document.getElementById("score").innerHTML = Score;
     }
   },
-  move: function(event){
+  move: function(){
     if(this.dir == 1){
       if(Board[(this.posy+1)][this.posx] != 1){
         this.posy = this.posy + 1;
         this.eat();
-      }else{
-        console.log('pared');
       }
     }else if (this.dir == 2) {
       if(Board[(this.posy-1)][this.posx] != 1){
         this.posy = this.posy - 1;
         this.eat();
-      }else{
-        console.log('pared');
       }
     }else if (this.dir == 3) {
       if (this.posx>0){
         if(Board[(this.posy)][this.posx-1] != 1){
           this.posx = this.posx - 1;
           this.eat();
-        }else{
-          console.log('pared');
         }
       }
     }else if (this.dir == 4) {
@@ -76,14 +75,16 @@ var pacman ={
         if(Board[(this.posy)][this.posx+1] != 1){
           this.posx = this.posx + 1;
           this.eat();
-        }else{
-          console.log('pared');
         }
       }
     }
   }
 };
 
+
+function setghosts(){
+  BlueGhost = new Ghost(Blueimg, 8, 11, 'random');
+}
 function setcanvas(){
   canvas = document.getElementById("mycanvas");
   ctx = canvas.getContext("2d");
@@ -102,7 +103,7 @@ function setboard(){
            [1, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1],
            [1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 1],
            [1, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 1],
-           [1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1],
+           [1, 1, 2, 1, 2, 1, 2, 1, 1, 3, 3, 1, 1, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1],
            [1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
@@ -132,6 +133,10 @@ function draw(){
       if (j == pacman.posx && i == pacman.posy){
         img.src= pacman.image;
         ctx.drawImage(img, 0, 0, 768, 768, xpos, ypos, pixwidth,pixheight);
+      }else if (j == BlueGhost.posx && i == BlueGhost.posy) {
+        img.src= BlueGhost.image;
+        ctx.drawImage(img, 0, 0, 600, 600, xpos, ypos, pixwidth,pixheight);
+
       }else{
         if (line[j] == 0){
           ctx.fillStyle= backgroundcolor;
@@ -140,6 +145,10 @@ function draw(){
           img.src= dot;
           ctx.fillStyle= backgroundcolor;
           ctx.drawImage(img, 0, 0, 256, 256, xpos, ypos, pixwidth,pixheight);
+        }else if(line[j] == 3){
+          img.src= doorimg;
+          ctx.fillStyle= backgroundcolor;
+          ctx.drawImage(img, 0, 0, 300, 300, xpos, ypos, pixwidth,pixheight);
         }else{
           ctx.fillStyle= wallcolor;
           ctx.fillRect(xpos, ypos, pixwidth, pixheight);
@@ -155,10 +164,31 @@ function draw(){
 
 }
 
+function checkscore(){
+  console.log(Lives);
+  blueeats = pacman.posx == BlueGhost.posx && pacman.posy ==BlueGhost.posy;
+  if (blueeats){
+    Lives = Lives-1;
+  }
+  if (Lives == 0){
+    return 'Lose';
+  }else{
+    return 'continue';
+  }
+}
+
+
 function play(){
+  var situation = 'continue';
   window.addEventListener('keydown', function(event) { pacman.changedir(event.key); });
   pacman.move();
+  BlueGhost.move();
   draw();
+  situation = checkscore();
+  if (situation =='continue'){
   setTimeout(function(){
     requestAnimationFrame(play);},1000/8);
+  }else{
+    console.log('game over');
+  }
 }
