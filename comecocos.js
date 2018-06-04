@@ -89,10 +89,10 @@ var pacman ={
 
 
 function setghosts(){
-  BlueGhost = new Ghost(Blueimg, 8, 11, 'random');
-  RedGhost = new Ghost(Redimg, 9, 11, 'random');
-  OrangeGhost = new Ghost(Orangeimg, 10, 11, 'random');
-  PinkGhost = new Ghost(Pinkimg, 11, 11, 'random');
+  BlueGhost = new Ghost(Blueimg, 8, 11, 'random', '');
+  RedGhost = new Ghost(Redimg, 9, 11, 'target', 'DR');
+  OrangeGhost = new Ghost(Orangeimg, 10, 11, 'target', 'DL');
+  PinkGhost = new Ghost(Pinkimg, 11, 11, 'target', 'UR');
 }
 function setcanvas(){
   canvas = document.getElementById("mycanvas");
@@ -188,6 +188,9 @@ function draw(){
 function checkscore(){
   console.log(Lives);
   blueeats = pacman.posx == BlueGhost.posx && pacman.posy ==BlueGhost.posy;
+  redeats = pacman.posx == RedGhost.posx && pacman.posy ==RedGhost.posy;
+  orangeeats = pacman.posx == OrangeGhost.posx && pacman.posy ==OrangeGhost.posy;
+  pinkeats = pacman.posx == PinkGhost.posx && pacman.posy ==PinkGhost.posy;
   if (blueeats){
     Lives = Lives-1;
   }
@@ -204,6 +207,12 @@ function play(){
   window.addEventListener('keydown', function(event) { pacman.changedir(event.key); });
   pacman.move();
   BlueGhost.move();
+  RedGhost.changedir();
+  RedGhost.move();
+  OrangeGhost.changedir();
+  OrangeGhost.move();
+  PinkGhost.changedir();
+  PinkGhost.move();
   draw();
   situation = checkscore();
   if (situation =='continue'){
