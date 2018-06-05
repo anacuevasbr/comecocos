@@ -7,7 +7,8 @@ var pixwidth;
 var wallcolor = 'Black';
 var backgroundcolor = 'White';
 var dot = 'white/comida.png';
-var bigdot ='white/comidagrande.pmg';
+var bigdot ='white/comidagrande.png';
+var fruits = ['white/cherry.png', 'white/apple.png', 'white/orange.png'];
 var img = new Image;
 var pacmanimage = 'white/pacman.png';
 var Score = 0;
@@ -55,7 +56,15 @@ var pacman ={
   eat: function(){
     if(Board[(this.posy)][this.posx] == 2){
       Board[(this.posy)][this.posx] = 0;
-      Score = Score + 1;
+      Score = Score + 10;
+      document.getElementById("score").innerHTML = Score;
+    }else if (Board[(this.posy)][this.posx] == 4) {
+      Board[(this.posy)][this.posx] = 0;
+      Score = Score + 50;
+      document.getElementById("score").innerHTML = Score;
+    }else if (Board[(this.posy)][this.posx] > 4) {
+      Board[(this.posy)][this.posx] = 0;
+      Score = Score + 100;
       document.getElementById("score").innerHTML = Score;
     }
   },
@@ -104,24 +113,24 @@ function setcanvas(){
 
 function setboard(){
   Board = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-           [2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2],
+           [5, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2],
            [1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1],
            [1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1],
            [1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 1],
            [1, 2, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 2, 1, 2, 1],
-           [1, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1],
+           [1, 2, 1, 2, 1, 1, 2, 1, 4, 2, 2, 4, 1, 2, 1, 1, 2, 1, 2, 1],
            [1, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1],
-           [1, 2, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 1],
+           [1, 4, 2, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 4, 1],
            [1, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 1, 2, 1, 1, 3, 3, 1, 1, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 1, 2, 1, 0, 0, 0, 0, 1, 2, 1, 2, 1, 2, 1, 1],
            [1, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1],
            [1, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1],
            [2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-           [1, 1, 2, 2, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 1],
+           [1, 1, 2, 2, 2, 1, 4, 1, 2, 1, 1, 2, 1, 4, 1, 2, 2, 2, 1, 1],
            [1, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1],
            [1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1],
-           [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+           [1, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 7, 1],
            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 
   pixwidth = canvas.width/Board.length;
@@ -174,7 +183,19 @@ function draw(){
         }else if(line[j] == 4){
           img.src= bigdot;
           ctx.fillStyle= backgroundcolor;
-          ctx.drawImage(img, 0, 0, 120, 120, xpos, ypos, pixwidth,pixheight);
+          ctx.drawImage(img, 0, 0, 500, 500, xpos, ypos, pixwidth,pixheight);
+        }else if(line[j] == 5){
+          img.src= fruits[0];
+          ctx.fillStyle= backgroundcolor;
+          ctx.drawImage(img, 0, 0, 650, 650, xpos, ypos, pixwidth,pixheight);
+        }else if(line[j] == 6){
+          img.src= fruits[1];
+          ctx.fillStyle= backgroundcolor;
+          ctx.drawImage(img, 0, 0, 650, 650, xpos, ypos, pixwidth,pixheight);
+        }else if(line[j] == 7){
+          img.src= fruits[2];
+          ctx.fillStyle= backgroundcolor;
+          ctx.drawImage(img, 0, 0, 650, 650, xpos, ypos, pixwidth,pixheight);
         }else{
           ctx.fillStyle= wallcolor;
           ctx.fillRect(xpos, ypos, pixwidth, pixheight);
@@ -192,15 +213,33 @@ function draw(){
 
 function checkscore(){
   console.log(Lives);
-  blueeats = pacman.posx == BlueGhost.posx && pacman.posy ==BlueGhost.posy;
-  redeats = pacman.posx == RedGhost.posx && pacman.posy ==RedGhost.posy;
-  orangeeats = pacman.posx == OrangeGhost.posx && pacman.posy ==OrangeGhost.posy;
-  pinkeats = pacman.posx == PinkGhost.posx && pacman.posy ==PinkGhost.posy;
-  if (blueeats){
+  var blueeats = pacman.posx == BlueGhost.posx && pacman.posy ==BlueGhost.posy;
+  var redeats = pacman.posx == RedGhost.posx && pacman.posy ==RedGhost.posy;
+  var orangeeats = pacman.posx == OrangeGhost.posx && pacman.posy ==OrangeGhost.posy;
+  var pinkeats = pacman.posx == PinkGhost.posx && pacman.posy ==PinkGhost.posy;
+  var i = 0;
+  var win = true;
+  var line;
+
+  if (blueeats || redeats || orangeeats || pinkeats){
     Lives = Lives-1;
   }
+
+  for(i = 0;i < Board.length; i++){
+    line = Board[i];
+
+    for(j = 0; j<Board.length;j++){
+      if (line[j] ==2 || line[j]>=4){
+        win = false;
+      }
+    }
+  }
+  console.log(win);
   if (Lives == 0){
     return 'Lose';
+  }else if (win) {
+    return 'win';
+
   }else{
     return 'continue';
   }
@@ -221,8 +260,11 @@ function play(){
   draw();
   situation = checkscore();
   if (situation =='continue'){
-  setTimeout(function(){
-    requestAnimationFrame(play);},1000/8);
+    setTimeout(function(){
+      requestAnimationFrame(play);},1000/7);
+  }else if (situation =='win') {
+    console.log('congratulations')
+
   }else{
     console.log('game over');
   }
