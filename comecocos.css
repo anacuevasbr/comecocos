@@ -1,7 +1,22 @@
-canvas {
+
+body {
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
+}
+canvas {
+  width:100%;
   border:1px solid #000000;
   margin-top: 5%;
+}
+
+p {
+  margin-left: 0%;
+  margin-top: 5%;
+  font-family: Impact;
+}
+
+#pacman {
+  margin-top: 6%;
+  margin-right: 0%;
 }

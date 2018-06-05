@@ -9,7 +9,6 @@ var backgroundcolor = 'White';
 var dot = 'white/comida.png';
 var bigdot ='white/comidagrande.png';
 var fruits = ['white/cherry.png', 'white/apple.png', 'white/orange.png'];
-var img = new Image;
 var pacmanimage = 'white/pacman.png';
 var Score = 0;
 var Blueimg = 'white/blueghost.png';
@@ -143,6 +142,7 @@ function draw(){
   var i;
   var xpos = 0;
   var ypos = 0;
+  var img = new Image;
 
   for(i = 0;i < Board.length; i++){
     line = Board[i];
@@ -212,7 +212,7 @@ function draw(){
 }
 
 function checkscore(){
-  console.log(Lives);
+
   var blueeats = pacman.posx == BlueGhost.posx && pacman.posy ==BlueGhost.posy;
   var redeats = pacman.posx == RedGhost.posx && pacman.posy ==RedGhost.posy;
   var orangeeats = pacman.posx == OrangeGhost.posx && pacman.posy ==OrangeGhost.posy;
@@ -220,11 +220,18 @@ function checkscore(){
   var i = 0;
   var win = true;
   var line;
+  var img;
 
   if (blueeats || redeats || orangeeats || pinkeats){
     Lives = Lives-1;
   }
+  if (Lives==2){
+    document.getElementById("pacman3").style.visibility="hidden";
 
+  }else if (Lives==1) {
+    document.getElementById("pacman2").style.visibility="hidden";
+
+  }
   for(i = 0;i < Board.length; i++){
     line = Board[i];
 
@@ -234,9 +241,9 @@ function checkscore(){
       }
     }
   }
-  console.log(win);
   if (Lives == 0){
     return 'Lose';
+    document.getElementById("pacman1").style.visibility="hidden";
   }else if (win) {
     return 'win';
 
