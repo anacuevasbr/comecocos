@@ -14,6 +14,8 @@ function Ghost(img, x, y, type, target){
           this.dir = 1;
         }else if(Board[(this.posy)][this.posx+1] != 1){
           this.dir = 4;
+        }else if (this.posx==19) {
+          this.target = randtarget();
         }else{
           this.target = randtarget();
         }
@@ -22,6 +24,8 @@ function Ghost(img, x, y, type, target){
           this.dir = 1;
         }else if(Board[(this.posy)][this.posx-1] != 1){
           this.dir = 3;
+        }else if (this.posx==0) {
+          this.target = randtarget();
         }else{
           this.target = randtarget();
         }
@@ -30,6 +34,8 @@ function Ghost(img, x, y, type, target){
           this.dir = 2;
         }else if(Board[(this.posy)][this.posx-1] != 1){
           this.dir = 3;
+        }else if (this.posx==0) {
+          this.target = randtarget();
         }else{
           this.target = randtarget();
         }
@@ -38,6 +44,8 @@ function Ghost(img, x, y, type, target){
           this.dir = 2;
         }else if(Board[(this.posy)][this.posx+1] != 1){
           this.dir = 4;
+        }else if (this.posx==19) {
+          this.target = randtarget();
         }else{
           this.target = randtarget();
         }

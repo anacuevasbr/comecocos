@@ -14,7 +14,7 @@ var Score = 0;
 var Blueimg = 'white/blueghost.png';
 var Redimg = 'white/redghost.png';
 var Orangeimg = 'white/orangeghost.png';
-var Pinkimg = 'white/pinkghost.png';
+var Pinkimg = 'white/pinkghost.jpg';
 var BlueGhost;
 var RedGhost;
 var OrangeGhost;
@@ -158,7 +158,7 @@ function draw(){
 
       }else if (j == PinkGhost.posx && i == PinkGhost.posy) {
         img.src= PinkGhost.image;
-        ctx.drawImage(img, 0, 0, 600, 600, xpos, ypos, pixwidth,pixheight);
+        ctx.drawImage(img, 0, 0, 900, 900, xpos, ypos, pixwidth,pixheight);
 
       }else if (j == OrangeGhost.posx && i == OrangeGhost.posy) {
         img.src= OrangeGhost.image;
@@ -268,7 +268,7 @@ function play(){
   situation = checkscore();
   if (situation =='continue'){
     setTimeout(function(){
-      requestAnimationFrame(play);},1000/7);
+      requestAnimationFrame(play);},1000/6);
   }else if (situation =='win') {
     console.log('congratulations')
 
