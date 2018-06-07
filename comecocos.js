@@ -21,13 +21,18 @@ var OrangeGhost;
 var PinkGhost;
 var doorimg = 'white/door.png';
 var Lives = 3;
+var alltimerec;
+var sessionrec;
+var time = 0;
 //Programa principal
 
 function startpacman(){
   setcanvas();
   setboard();
   setghosts();
+  initstorage();
   draw();
+  timer();
   play();
 
 }
@@ -242,9 +247,10 @@ function checkscore(){
       }
     }
   }
-  if (Lives == 0){
-    return 'Lose';
+
+  if (Lives == 0 || time>= 120){
     document.getElementById("pacman1").style.visibility="hidden";
+    return 'Lose';
   }else if (win) {
     return 'win';
 
@@ -271,10 +277,15 @@ function play(){
     setTimeout(function(){
       requestAnimationFrame(play);},1000/6);
   }else if (situation =='win') {
-    console.log('congratulations')
+    console.log('congratulations');
+    updaterecord();
+    document.getElementById('music').pause();
 
   }else{
     console.log('game over');
+    updaterecord();
+    document.getElementById('music').pause();
+    
   }
 }
 
@@ -289,4 +300,42 @@ function audiocontrol(){
     audio.play();
     fruit.currentTime = 0;
   }, 1000)
+}
+
+function initstorage(){
+  sessionrec = sessionStorage.getItem('record');
+  if (sessionrec == undefined){
+    sessionrec = 0;
+    sessionStorage.setItem("record", sessionrec);
+  }
+
+  alltimerec = localStorage.getItem('record');
+  if (alltimerec == undefined){
+    alltimerec = 0;
+    localStorage.setItem("record", alltimerec);
+  }
+
+  document.getElementById("alltimerecord").innerHTML ='All time record: ' + alltimerec;
+  document.getElementById("sessionrecord").innerHTML ='This session: ' + sessionrec;
+}
+
+function updaterecord(){
+
+  if(Score>sessionrec){
+    sessionStorage.setItem("record", Score);
+    document.getElementById("sessionrecord").innerHTML ='This session: ' + Score;
+  }
+  if(Score>alltimerec){
+    localStorage.setItem("record", Score);
+    document.getElementById("alltimerecord").innerHTML ='All time record: ' + Score;
+  }
+
+
+}
+
+function timer(){
+  time = time+1;
+  if(time<121){
+  setTimeout(function(){timer();}, 1000);
+  }
 }

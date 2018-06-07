@@ -8,32 +8,40 @@
     <link href="comecocos.css" rel="stylesheet" type="text/css">
   </head>
   <body onload='startpacman();'>
-    <div id="pacman">
-      <p id="score">0</p>
-      <img id="pacman1" src='white/pacman.png' width="20"/>
-      <img id="pacman2" src='white/pacman.png' width="20"/>
-      <img id="pacman3" src='white/pacman.png' width="20"/>
+    <div id="records">
+      <h1>RECORDS</h1>
+      <p id='alltimerecord'></p>
+      <p id='sessionrecord'></p>
     </div>
-    <canvas id="mycanvas" >
-      Your browser does not support the HTML5 canvas tag.
-    </canvas>
-    <img id="dot" src="white/comida.png" width="1"/>
-    <img id="bigdot" src="white/comidagrande.png" width="1"/>
-    <img id="bigdot" src="white/comidagrande.png" width="1"/>
-    <img id="bigdot" src="white/cherry.png" width="1"/>
-    <img id="bigdot" src="white/apple.png" width="1"/>
-    <img id="bghost" src="white/orange.png" width="1"/>
-    <img id="bghost" src="white/blueghost.png" width="1"/>
-    <img id="rghost" src="white/redghost.png" width="1"/>
-    <img id="oghost" src="white/orangeghost.png" width="1"/>
-    <img id="pghost" src="white/pinkghost.jpg" width="1"/>
-    <img id="door" src="white/door.png" width="1"/>
-    <img id="pacman" src='white/pacman.png' width="1"/>
-    <audio id='music' loop controls autoplay>
-      <source src="Pim Poy.wav" type="audio/wav">
-    </audio>
-    <audio id='fruitsound'>
-      <source src="fruit.wav" type="audio/wav">
-    </audio>
+    <div id='main-div'>
+      <div id="pacman">
+        <p id="score">0</p>
+        <img id="pacman1" src='white/pacman.png' width="20"/>
+        <img id="pacman2" src='white/pacman.png' width="20"/>
+        <img id="pacman3" src='white/pacman.png' width="20"/>
+      </div>
+      <canvas id="mycanvas" >
+        Your browser does not support the HTML5 canvas tag.
+      </canvas>
+      <img id="dot" src="white/comida.png" width="1"/>
+      <img id="bigdot" src="white/comidagrande.png" width="1"/>
+      <img id="bigdot" src="white/comidagrande.png" width="1"/>
+      <img id="bigdot" src="white/cherry.png" width="1"/>
+      <img id="bigdot" src="white/apple.png" width="1"/>
+      <img id="bghost" src="white/orange.png" width="1"/>
+      <img id="bghost" src="white/blueghost.png" width="1"/>
+      <img id="rghost" src="white/redghost.png" width="1"/>
+      <img id="oghost" src="white/orangeghost.png" width="1"/>
+      <img id="pghost" src="white/pinkghost.jpg" width="1"/>
+      <img id="door" src="white/door.png" width="1"/>
+      <img id="pacman" src='white/pacman.png' width="1"/>
+      <audio id='music' controls loop>
+        <source src="Pim Poy.wav" type="audio/wav">
+      </audio>
+      <audio id='fruitsound'>
+        <source src="fruit.wav" type="audio/wav">
+      </audio>
+    </div>
+
   </body>
 </html>
