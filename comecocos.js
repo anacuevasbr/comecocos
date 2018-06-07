@@ -65,6 +65,7 @@ var pacman ={
       Board[(this.posy)][this.posx] = 0;
       Score = Score + 100;
       document.getElementById("score").innerHTML = Score;
+      audiocontrol();
     }
   },
   move: function(){
@@ -275,4 +276,17 @@ function play(){
   }else{
     console.log('game over');
   }
+}
+
+function audiocontrol(){
+  var audio = document.getElementById('music');
+  var fruit = document.getElementById('fruitsound');
+
+  audio.pause();
+  fruit.play();
+  setTimeout(function(){
+    fruit.pause();
+    audio.play();
+    fruit.currentTime = 0;
+  }, 1000)
 }
